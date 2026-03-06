@@ -137,7 +137,7 @@ Para este trabajo, nuestra variable de resultado es la anemia. Básicamente, la 
 
 ### 3.3 Estadísticas descriptivas
 
-La Tabla 1 presenta las estadísticas descriptivas de las variables principales, diferenciando entre el grupo control (niños de 33 a 35 meses) y el grupo tratado (niños de 36 a 39 meses). Esta tabla tiene dos funciones: (1) describir la muestra de análisis y (2) verificar si los grupos son comparables en sus características pre-tratamiento, lo cual es una condición necesaria para la validez del diseño RD.
+La Tabla 1 presenta las estadísticas descriptivas de las variables principales, diferenciando entre el grupo control (niños de 33 a 35 meses) y el grupo tratado (niños de 36 a 39 meses). 
 
 *(Ver Tabla 1 en el notebook)*
 
@@ -327,6 +327,7 @@ Este trabajo aplica la metodología de Regresión Discontinua para estimar el ef
 ---
 
 *Nota: Este documento es autocontenido. Para ver el código fuente y la ejecución completa del análisis, consultar el notebook `analisis_RD_qaliwarma.ipynb` en el mismo directorio. Los gráficos referenciados se encuentran en la subcarpeta `figuras/`.*
+
 
 
 
