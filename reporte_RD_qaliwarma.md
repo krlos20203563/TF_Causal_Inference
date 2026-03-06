@@ -65,53 +65,38 @@ La **exogeneidad** se basa en que esta regla no se creó pensando en los niveles
 
 ### 2.2 Variable de corte
 
-La **variable de corte** es la **edad del niño en meses** ($X_i$). La regla de asignación al tratamiento es determinística y viene dada por:
+La **variable de corte** es la **edad del niño en meses**.
 
-$$D_i = \mathbf{1}[X_i \geq 36]$$
+Nuestra muestra en dos grupos:
 
-donde $D_i = 1$ indica que el niño es **elegible** para recibir Qali Warma, y $D_i = 0$ indica que **no es elegible**. El umbral de corte es $c = 36$ meses.
+- Grupo control : niños de 33 a 35 meses, no elegibles para el programa.
+- Grupo tratado : niños de 36 a 39 meses, elegibles para el programa.
 
-Esta regla divide a nuestra muestra en dos grupos:
 
-- **Grupo control** ($D_i = 0$): niños de 33 a 35 meses, no elegibles para el programa.
-- **Grupo tratado** ($D_i = 1$): niños de 36 a 39 meses, elegibles para el programa.
-
-Una consideración importante es si el diseño es **sharp** o **fuzzy**. En un diseño **sharp**, la probabilidad de recibir el tratamiento salta de 0 a 1 exactamente en el umbral: todos los elegibles reciben el programa y ningún no-elegible lo recibe. En un diseño **fuzzy**, el salto es parcial: puede haber niños elegibles que no reciben el programa (por inasistencia o no inscripción) o niños no elegibles que lo reciben (por error administrativo o acceso a programas similares). El tipo de diseño se verifica empíricamente en el Gráfico 3 del análisis.
-
-### 2.3 Estimador del efecto causal (Requisito 3 del trabajo)
+### 2.3 Estimador del efecto causal
 
 El estimador de Regresión Discontinua identifica el efecto causal del programa en el umbral, formalmente definido como:
 
-$$\hat{\tau}_{RD} = \lim_{x \to c^+} \mathbb{E}[Y_i | X_i = x] - \lim_{x \to c^-} \mathbb{E}[Y_i | X_i = x]$$
 
-Este estimador es el **Efecto Local Promedio del Tratamiento (LATE)** para los niños que están exactamente en el umbral de 36 meses.
+Este estimador es el **Efecto Local Promedio del Tratamiento (LATE)** para los niños que están exactamente en el umbral de 36 meses
 
-Para implementar este estimador, estimamos el siguiente modelo de **regresión lineal local** con pendientes distintas a cada lado del umbral:
+El **supuesto de identificación** es la **continuidad del potencial de resultados en el umbral**. Esto significa que, si el programa no existiera, la probabilidad de que un niño tenga anemia debería cambiar de forma gradual con la edad, incluso alrededor de los 36 meses.
 
-$$Y_i = \alpha + \tau D_i + \beta_1 (X_i - c) + \beta_2 D_i \cdot (X_i - c) + \varepsilon_i$$
+Este supuesto es razonable porque no hay una razón biológica, económica o social para que la anemia cambie de forma repentina justo cuando un niño cumple exactamente 36 meses. En realidad, lo único que cambia en ese punto es la posibilidad de acceder al programa.
 
-donde:
-
-- $Y_i$ es la variable de resultado: indicador de anemia (1 = tiene anemia, 0 = no tiene anemia)
-- $D_i$ es el indicador de elegibilidad: $D_i = \mathbf{1}[X_i \geq 36]$
-- $X_i - c$ es la edad del niño centrada en el umbral (variable de corte centrada)
-- $D_i \cdot (X_i - c)$ es la interacción entre elegibilidad y variable de corte, que permite que la pendiente sea distinta a cada lado
-- $\tau$ es el **estimador de RD**: la diferencia en la probabilidad de anemia exactamente en el umbral entre los elegibles y los no elegibles, que interpretamos como el efecto causal del programa
-- Los errores estándar se corrigen por heterocedasticidad usando el estimador robusto HC3
-
-El **supuesto de identificación** es la **continuidad del potencial de resultados en el umbral**: en ausencia del programa, la probabilidad de tener anemia sería una función continua de la edad en el umbral. Este supuesto es plausible porque no existe ninguna razón biológica, económica ni social para que la anemia deba cambiar abruptamente al cumplir exactamente 36 meses. Lo que cambia en el umbral es únicamente la elegibilidad al programa.
-
-### 2.4 Potenciales problemas con la estrategia (Requisito 4 del trabajo)
+### 2.4 Potenciales problemas con la estrategia 
 
 Identificamos cuatro amenazas principales a la validez del diseño:
 
-**Amenaza 1 — Manipulación de la variable de corte:** Si los padres o instituciones manipulan la edad registrada de los niños para cruzar el umbral, el grupo de control y el grupo de tratado ya no serían comparables en el margen. Por ejemplo, si los padres con mayor motivación y capacidad de gestión adelantan el registro de sus hijos, los elegibles serían sistemáticamente distintos a los no elegibles. Esta amenaza se evalúa con el **test de densidad (McCrary)**: bajo H₀ de no manipulación, la densidad de la variable de corte debe ser continua en el umbral.
+**Amenaza 1 : Manipulación de la variable de corte:**
+Si los padres o instituciones modificaran la edad registrada de los niños para que pasen el umbral, el grupo de control y el grupo tratado dejarían de ser comparables. Por ejemplo, algunos padres podrían adelantar el registro de sus hijos para que accedan antes al programa. Para evaluar esto se usa el **test de densidad**, si no hay manipulación, la densidad de la edad debería verse continua alrededor del umbral.
 
-**Amenaza 2 — Discontinuidades en covariables pre-tratamiento:** Si variables que predicen la anemia y son determinadas antes del tratamiento (como el sexo, el peso al nacer o el nivel educativo de la madre) presentan discontinuidades en el umbral, el supuesto de continuidad se vería violado. Esto sugeriría que los grupos difieren en características no observables que también afectan la anemia. Se evalúa con **tests de placebo en covariables** (Gráfico 4).
+**Amenaza 2 : Discontinuidades en covariables pre-tratamiento:**
+Si variables que influyen en la anemia y que se determinan antes del programa (como el sexo del niño, el peso al nacer o la educación de la madre) cambian bruscamente en el umbral, entonces el supuesto de continuidad no se cumpliría. Esto indicaría que los grupos no son realmente comparables. Para revisarlo se usan **tests de placebo en covariables** (Gráfico 4).
 
-**Amenaza 3 — Selección inadecuada del bandwidth:** La elección del ancho de banda $h$ implica un trade-off entre sesgo (menor si $h$ es pequeño) y varianza (menor si $h$ es grande). Si el bandwidth es demasiado amplio, la aproximación lineal puede ser inadecuada y el estimador se sesga. Lo evaluamos reportando estimaciones para distintos valores de $h$ (Gráfico 5 y Tabla 2).
+**Amenaza 3 : Efectos de anticipación y derrame:**
+Los padres podrían cambiar la alimentación del niño antes de que cumpla 36 meses porque saben que pronto recibirá el programa (efecto de anticipación). También podría ocurrir que algunos niños no elegibles accedan a otros programas de alimentación similares. En ambos casos, el grupo de control dejaría de ser un verdadero contrafactual y el efecto estimado del programa podría verse reducido.
 
-**Amenaza 4 — Efectos de anticipación y derrame:** Los padres podrían cambiar sus comportamientos alimentarios antes de que el niño cumpla 36 meses (efecto de anticipación), lo cual contaminaría el contrafactual. Asimismo, si los niños no elegibles tienen acceso a otros programas de alimentación similares, el grupo control también podría estar "tratado", lo que atenuaría el estimador de RD.
 
 ---
 
@@ -119,31 +104,33 @@ Identificamos cuatro amenazas principales a la validez del diseño:
 
 ### 3.1 Fuente de datos
 
-La base de datos utilizada en este análisis fue proporcionada por el curso y está disponible en el repositorio GitHub del docente:
+La base de datos utilizada se encuentra en el siguiente link: 
 
-```
-https://github.com/krlos20203563/inferencia_causal/raw/refs/heads/main/base_RD_qaliwarma_anemia.csv
-```
+[https://github.com/krlos20203563/inferencia_causal/raw/refs/heads/main/base_RD_qaliwarma_anemia.csv](https://raw.githubusercontent.com/krlos20203563/inferencia_causal/refs/heads/main/base_RD_qaliwarma_anemia.csv)
 
-Esta base contiene información de niños peruanos de entre 33 y 39 meses de edad, con variables sobre su estado de salud (anemia), su edad exacta en meses, y covariables sociodemográficas del niño y del hogar. La fuente subyacente corresponde a datos administrativos y/o encuestas de salud (como la ENDES del INEI), procesados para el diseño de este ejercicio.
+Esta base contiene información de niños peruanos de entre 33 y 39 meses de edad, con variables sobre su estado de salud (anemia), su edad exacta en meses, y covariables sociodemográficas del niño y del hogar.
 
 ### 3.2 Descripción de variables
 
 La siguiente tabla describe las variables incluidas en el análisis:
 
+Aquí la tienes en **Markdown**, para que la pegues directamente en GitHub y te salga la tabla:
+
+
 | Variable | Tipo | Descripción | Rol en el análisis |
 |----------|------|-------------|-------------------|
-| `anemia` | Binaria (0/1) | Indicador de si el niño tiene anemia (cualquier nivel). Valor 1 = tiene anemia, 0 = no tiene anemia | **Variable de resultado** ($Y_i$) |
-| `edad_meses` | Continua (33-39) | Edad del niño en meses al momento de la encuesta | **Variable de corte / running variable** ($X_i$) |
-| `elegible` | Binaria (0/1) | Indicador de elegibilidad para Qali Warma. Valor 1 si `edad_meses` ≥ 36 | **Variable de tratamiento** ($D_i$) |
-| `running` | Continua | Edad del niño centrada en el umbral: `running = edad_meses - 36` | Variable de corte centrada en 0 |
+| `anemia` | Binaria (0/1) | Indica si el niño tiene anemia. 1 = tiene anemia, 0 = no tiene anemia | **Variable de resultado** ($Y_i$) |
+| `edad_meses` | Continua (33–39) | Edad del niño en meses al momento de la encuesta | **Variable de corte / running variable** ($X_i$) |
+| `elegible` | Binaria (0/1) | Indica si el niño puede acceder a Qali Warma. 1 si `edad_meses` ≥ 36 | **Variable de tratamiento** ($D_i$) |
+| `running` | Continua | Edad del niño centrada en el umbral: `edad_meses - 36` | Variable de corte centrada en 0 |
 | `sexo` | Binaria (0/1) | Sexo del niño (1 = mujer, 0 = hombre) | **Covariable pre-tratamiento** |
-| `peso` | Continua | Peso del niño en kg al momento de la encuesta | **Covariable pre-tratamiento** |
+| `peso` | Continua | Peso del niño en kg | **Covariable pre-tratamiento** |
 | `talla` | Continua | Talla del niño en cm | **Covariable pre-tratamiento** |
-| `hemoglobina` | Continua | Nivel de hemoglobina en g/dL (ajustada por altitud) | Variable relacionada con el resultado |
+| `hemoglobina` | Continua | Nivel de hemoglobina en g/dL (ajustado por altitud) | Variable relacionada con el resultado |
 | `edad_madre` | Continua | Edad de la madre en años | **Covariable pre-tratamiento** |
 | `educ_madre` | Categórica | Nivel educativo de la madre (0=sin educación, 1=primaria, 2=secundaria, 3=superior) | **Covariable pre-tratamiento** |
-| `rural` | Binaria (0/1) | Área de residencia (1 = rural, 0 = urbano) | **Covariable pre-tratamiento** |
+| `rural` | Binaria (0/1) | Lugar de residencia (1 = rural, 0 = urbano) | **Covariable pre-tratamiento** |
+
 
 **Notas importantes sobre las variables:**
 
@@ -341,6 +328,7 @@ Este trabajo aplica la metodología de Regresión Discontinua para estimar el ef
 ---
 
 *Nota: Este documento es autocontenido. Para ver el código fuente y la ejecución completa del análisis, consultar el notebook `analisis_RD_qaliwarma.ipynb` en el mismo directorio. Los gráficos referenciados se encuentran en la subcarpeta `figuras/`.*
+
 
 
 
