@@ -7,8 +7,10 @@ output:
 # Impacto del Programa Qali Warma sobre la Anemia Infantil: Un Análisis de Regresión Discontinua
 
 **Trabajo Final — Fundamentos de Inferencia Causal**  
-**Q-LAB — Escuela de Verano 2026**
-
+**Integrantes**:
+- Julia Massa
+- Carlos
+- Ibeeth Medina Silva (20214029)
 ---
 
 ## Resumen
@@ -27,17 +29,17 @@ Además, se realizan algunas pruebas de robustez, para verificar que los grupos 
 
 ### 1.1 El programa Qali Warma
 
-**Qali Warma** (en quechua: "niño vigoroso") es el programa de alimentación escolar del Estado peruano, administrado por el Ministerio de Desarrollo e Inclusión Social (MIDIS). Su propósito es garantizar el servicio de alimentación a los niños y niñas que asisten a instituciones educativas públicas a lo largo de todo el año escolar, con el fin de mejorar su atención, asistencia y hábitos alimenticios.
+**Qali Warma** (en quechua: "niño vigoroso") es el programa de alimentación escolar del Estado peruano, administrado por el Ministerio de Desarrollo e Inclusión Social (MIDIS). Su propósito es garantizar el servicio de alimentación a los niños y niñas que asisten a instituciones educativas públicas a lo largo de todo el año escolar, con el fin de mejorar su atención, asistencia y hábitos alimenticios (CITA).
 
-El programa opera en dos niveles: **inicial** y **primaria**. En el nivel inicial, la elegibilidad comienza a los **36 meses de edad** (3 años cumplidos), que es la edad mínima para ingresar a los Centros de Educación Inicial (CEI) o Programas No Escolarizados de Educación Inicial (PRONOEI) que reciben las raciones del programa. Esta regla de corte por edad es la base de nuestra estrategia empírica.
+El programa opera en dos niveles: inicial y primaria. En el nivel inicial, la elegibilidad comienza a los **36 meses de edad** (3 años cumplidos), que es la edad mínima para ingresar a los Centros de Educación Inicial (CEI) o Programas No Escolarizados de Educación Inicial (PRONOEI) que reciben las raciones del programa. Esta regla de corte por edad es la base de nuestra estrategia empírica para el análisis.
 
-El programa entrega a los niños elegibles una ración alimentaria diaria durante los días del calendario escolar. Las raciones están diseñadas para cubrir entre el 20% y el 30% de los requerimientos nutricionales diarios del niño, con especial atención al aporte de hierro, zinc y otros micronutrientes clave para prevenir la anemia. En ese sentido, existe una plausibilidad biológica y nutritiva para esperar que el programa reduzca la prevalencia de anemia en los niños beneficiarios.
+El programa entrega a los niños elegibles una ración alimentaria diaria durante los días del calendario escolar. Las raciones están diseñadas para cubrir entre el 20% y el 30% de los requerimientos nutricionales diarios del niño, con especial atención al aporte de hierro, zinc y otros micronutrientes clave para prevenir la anemia. En ese sentido, se espera que el programa reduzca la prevalencia de anemia en los niños beneficiarios del mismo.
 
 ### 1.2 La anemia infantil en el Perú como problema de política pública
 
 La anemia infantil es uno de los principales problemas de salud pública del Perú. Según la Encuesta Demográfica y de Salud Familiar (ENDES) del INEI, cerca del 40% de los niños menores de 3 años presenta algún tipo de anemia. La anemia se define como una concentración de hemoglobina por debajo de los umbrales establecidos por la Organización Mundial de la Salud (OMS): menos de 11 g/dL en niños de 6 a 59 meses, ajustado por altitud. Puede clasificarse como leve (10.0–10.9 g/dL), moderada (7.0–9.9 g/dL) o grave (< 7.0 g/dL).
 
-Las consecuencias de la anemia en la primera infancia son severas e irreversibles en algunos casos: afecta el desarrollo cognitivo, reduce la capacidad de aprendizaje, frena el crecimiento físico y debilita el sistema inmune. La anemia en los primeros años de vida tiene impactos que perduran hasta la adultez en términos de capital humano y productividad económica. Por ello, el Estado peruano ha implementado diversas intervenciones orientadas a reducirla, entre las cuales Qali Warma es una de las de mayor alcance poblacional.
+Las consecuencias de la anemia en la primera infancia son severas e irreversibles en algunos casos, puesto que entre sus efectos se encuentran: la afectación al desarrollo cognitivo, la reducción de la capacidad de aprendizaje, un tardío en el crecimiento físico y la deilitación del sistema inmune. La anemia en los primeros años de vida tiene impactos que perduran hasta la adultez en términos de capital humano y productividad económica. Por ello, el Estado peruano ha implementado diversas intervenciones orientadas a reducirla, entre las cuales Qali Warma es una de las más conocidas por su mayor alcance poblacional.
 
 ### 1.3 Motivación del estudio: el problema de identificación causal
 
@@ -343,6 +345,7 @@ Este trabajo aplica la metodología de Regresión Discontinua para estimar el ef
 ---
 
 *Nota: Este documento es autocontenido. Para ver el código fuente y la ejecución completa del análisis, consultar el notebook `analisis_RD_qaliwarma.ipynb` en el mismo directorio. Los gráficos referenciados se encuentran en la subcarpeta `figuras/`.*
+
 
 
 
