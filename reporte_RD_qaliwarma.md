@@ -43,19 +43,16 @@ Las consecuencias de la anemia en la primera infancia son severas e irreversible
 
 ### 1.3 Motivación del estudio: el problema de identificación causal
 
-Evaluar si Qali Warma **causa** una reducción en la anemia es más difícil de lo que parece. Una comparación simple entre niños que reciben el programa y niños que no lo reciben estaría plagada de **sesgo de selección**: los niños que ya están inscritos en el programa pueden diferir de los que no están, en variables no observables como los hábitos alimenticios del hogar, el nivel de pobreza, la accesibilidad geográfica a los centros educativos, o el capital social de la familia. Una regresión ordinaria que no controle adecuadamente por estas diferencias entregará un estimador sesgado del efecto causal del programa.
+Evaluar si Qali Warma **causa** una reducción en la anemia es más difícil de lo que parece. Según Vargas (2022), este programa garantizó la alimentación de alrededor de 4 millones de niños en edades escolares. En ese sentido, este programa aparenta ser un elemento clave en la lucha contra la desnutrición y la anemia en el Perú. Sin embargo, tal como sostiene Francke (2021), aparentemente no ha ejercido gran influencia a nivel nacional en los últimos años. 
 
-La **Regresión Discontinua** es precisamente la herramienta diseñada para resolver este problema cuando la elegibilidad a un programa está determinada por una regla de corte sobre una variable continua. Al comparar niños que están justo por encima y justo por debajo del umbral de 36 meses, podemos asumir que ambos grupos son comparables en sus características no observables, ya que la asignación al tratamiento es, en ese margen, virtualmente aleatoria.
+En ese sentido, una comparación simple entre niños que reciben el programa y niños que no lo reciben habría bastante sesgo de selección puesto que los niños que ya están inscritos en el programa pueden diferir de los que no están, en variables no observables como los hábitos alimenticios del hogar, el nivel de pobreza, la accesibilidad geográfica a los centros educativos, o el capital social de la familia.
+
+La **Regresión Discontinua** es precisamente la herramienta diseñada para resolver este problema cuando la elegibilidad a un programa está determinada por una regla de corte sobre una variable continua. Al comparar niños que están justo por encima y justo por debajo del umbral de 36 meses, podemos asumir que ambos grupos son comparables en sus características no observables, ya que la asignación al tratamiento es, en ese margen, aparentemente aleatoria.
 
 ### 1.4 Pregunta de investigación
 
 > **¿El acceso al programa Qali Warma reduce la probabilidad de anemia en niños de alrededor de 36 meses de edad?**
 
-### 1.5 Vinculación con los trabajos previos del curso
-
-Este trabajo se apoya en los conceptos y herramientas desarrollados a lo largo del curso. Del **Módulo 5** (Regresión con variables dependientes binarias), retomamos el uso de modelos de probabilidad lineal (MPL/OLS) y logit para analizar la anemia como variable binaria, así como la construcción de variables desde la ENDES del INEI. Del **Módulo 6** (Diseños Cuasi-Experimentales), aplicamos directamente la metodología de RD con regresión lineal local, la lógica de comparación en el umbral y las pruebas de validez del diseño, siguiendo la misma estructura del ejemplo visto en clase (IFH / curative). Del **Módulo 4** (Regresión Múltiple), retomamos el uso de errores robustos (HC3) y la inclusión de covariables como controles. Del **Módulo 3** (Regresión Simple), la base conceptual del modelo de regresión lineal y la interpretación de coeficientes.
-
----
 
 ## 2. Marco Teórico y Estrategia Empírica
 
@@ -63,13 +60,12 @@ Este trabajo se apoya en los conceptos y herramientas desarrollados a lo largo d
 
 La **fuente de variación exógena** en este estudio es la **regla administrativa de elegibilidad de Qali Warma basada en la edad**: solo los niños de 36 meses o más pueden acceder a las raciones del programa a través de los centros de educación inicial. Esta regla es establecida por política pública y se aplica uniformemente, con independencia de las características individuales de cada niño o de su hogar.
 
-La clave de la exogeneidad radica en que esta regla no fue diseñada pensando en los niveles de anemia de los niños: fue establecida en función de la estructura del sistema educativo peruano (la edad mínima para el nivel inicial). En consecuencia, la variación en la exposición al programa que se produce en torno al umbral de 36 meses no está correlacionada con características del niño o del hogar que también afecten la anemia. Esto es exactamente lo que necesitamos para inferencia causal.
+La **exogeneidad** se basa en que esta regla no se creó pensando en los niveles de anemia de los niños, sino en cómo está organizado el sistema educativo peruano (la edad mínima para entrar al nivel inicial). Por eso, el hecho de que algunos niños puedan acceder al programa justo después de cumplir 36 meses no depende de características del niño o de su hogar que también influyan en la anemia. Esto es lo que permite usar esta situación para hacer **inferencia causal**.
 
-Esto es análogo al **Índice de Focalización de Hogares (IFH)** visto en clase: así como el IFH determina de forma exógena quién recibe o no una transferencia social en función de su puntaje respecto a un umbral administrativo, en nuestro caso la **edad en meses** determina de forma exógena quién recibe o no la alimentación de Qali Warma en función del umbral de 36 meses.
 
-### 2.2 Regla de asignación al tratamiento (Requisito 2 del trabajo)
+### 2.2 Variable de corte
 
-La **variable de corte** (o *running variable*) es la **edad del niño en meses** ($X_i$). La regla de asignación al tratamiento es determinística y viene dada por:
+La **variable de corte** es la **edad del niño en meses** ($X_i$). La regla de asignación al tratamiento es determinística y viene dada por:
 
 $$D_i = \mathbf{1}[X_i \geq 36]$$
 
@@ -345,6 +341,7 @@ Este trabajo aplica la metodología de Regresión Discontinua para estimar el ef
 ---
 
 *Nota: Este documento es autocontenido. Para ver el código fuente y la ejecución completa del análisis, consultar el notebook `analisis_RD_qaliwarma.ipynb` en el mismo directorio. Los gráficos referenciados se encuentran en la subcarpeta `figuras/`.*
+
 
 
 
