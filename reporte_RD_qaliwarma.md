@@ -13,9 +13,13 @@ output:
 
 ## Resumen
 
-Este trabajo estima el efecto causal del programa de alimentación escolar **Qali Warma** sobre la prevalencia de **anemia** en niños de 33 a 39 meses de edad, utilizando una estrategia de **Regresión Discontinua (RD)**. La fuente de variación exógena es el umbral de elegibilidad del programa: los niños que tienen **36 meses o más** son elegibles para recibir el programa en los centros de educación inicial del Estado, mientras que los menores de 36 meses no lo son. Esta discontinuidad administrativa, que no depende de características individuales de los niños ni de sus hogares, permite construir un grupo de control válido y estimar el efecto causal del programa sobre la anemia.
+Este trabajo de Inferencia Causal busca estimar el efecto del programa de alimentación escolar **Qali Warma** sobre la anemia en niños de 33 a 39 meses de edad. Para ello se utiliza una estrategia de Regresión Discontinua (RD).
 
-El estimador de RD capta el **Efecto Local Promedio del Tratamiento (LATE)** en el umbral de 36 meses: compara la probabilidad de anemia de los niños justo por encima y justo por debajo de ese umbral, bajo el supuesto de que ambos grupos son, en promedio, comparables en todas sus características salvo en su exposición al programa. Las pruebas de robustez —incluyendo el test de densidad de McCrary, los tests de placebo en covariables y la sensibilidad al bandwidth— evalúan la validez de este supuesto.
+La idea se basa en la regla de elegibilidad del programa: los niños que tienen 36 meses o más pueden acceder al programa en centros de educación inicial públicos, mientras que los menores de 36 meses no. Esta diferencia funciona como un punto de corte que permite comparar a niños que son muy similares entre sí, pero donde unos pueden recibir el programa y otros no.
+
+De esta manera, el método compara la probabilidad de anemia entre los niños que están justo por encima y justo por debajo de los 36 meses, lo que permite aproximar el efecto del programa. Este efecto se conoce como Efecto Local Promedio del Tratamiento (LATE), ya que se estima solo alrededor de ese punto de corte.
+
+Además, se realizan algunas pruebas de robustez, para verificar que los grupos comparados sean realmente similares y que los resultados sean confiables.
 
 ---
 
@@ -339,5 +343,6 @@ Este trabajo aplica la metodología de Regresión Discontinua para estimar el ef
 ---
 
 *Nota: Este documento es autocontenido. Para ver el código fuente y la ejecución completa del análisis, consultar el notebook `analisis_RD_qaliwarma.ipynb` en el mismo directorio. Los gráficos referenciados se encuentran en la subcarpeta `figuras/`.*
+
 
 
