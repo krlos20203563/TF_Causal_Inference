@@ -132,9 +132,8 @@ Aquí la tienes en **Markdown**, para que la pegues directamente en GitHub y te 
 | `rural` | Binaria (0/1) | Lugar de residencia (1 = rural, 0 = urbano) | **Covariable pre-tratamiento** |
 
 
-**Notas importantes sobre las variables:**
 
-Para este trabajo, nuestra variable de resultado es la anemia. Básicamente, la armamos como una variable dicotómica: le pusimos 1 si el niño presenta cualquier grado de anemia (ya sea leve, moderada o fuerte) y 0 si no tiene nada. Como estamos usando un Modelo de Probabilidad Lineal (OLS) con una dependiente binaria, el coeficiente $\tau$ se lee directamente como el cambio en puntos porcentuales de la probabilidad de estar anémico. Estamos aplicando lo mismo que vimos en el Módulo 5 del curso, donde analizamos los datos de la ENDES de la misma forma.En cuanto a la variable de corte (running variable), decidimos centrarla para que todo sea más fácil de interpretar. Al dejar el umbral en 0, sabemos de una que los valores negativos son el grupo de control y los positivos son los que recibieron el tratamiento.Finalmente, incluimos varias covariables pre-tratamiento (como el sexo del niño o factores de la madre). Estas variables son clave porque, al ser previas al programa, no se ven afectadas por este, pero sí nos ayudan a explicar mejor por qué un niño podría tener anemia.
+Para este trabajo, nuestra variable de resultado es la anemia. Básicamente, la armamos como una variable dicotómica: le pusimos 1 si el niño presenta cualquier grado de anemia (ya sea leve, moderada o fuerte) y 0 si no tiene nada. En cuanto a la variable de corte (running variable), decidimos centrarla para que todo sea más fácil de interpretar. Al dejar el umbral en 0, sabemos de una que los valores negativos son el grupo de control y los positivos son los que recibieron el tratamiento.Finalmente, incluimos varias covariables pre-tratamiento (como el sexo del niño o factores de la madre). Estas variables son clave porque, al ser previas al programa, no se ven afectadas por este, pero sí nos ayudan a explicar mejor por qué un niño podría tener anemia.
 
 ### 3.3 Estadísticas descriptivas
 
@@ -328,6 +327,7 @@ Este trabajo aplica la metodología de Regresión Discontinua para estimar el ef
 ---
 
 *Nota: Este documento es autocontenido. Para ver el código fuente y la ejecución completa del análisis, consultar el notebook `analisis_RD_qaliwarma.ipynb` en el mismo directorio. Los gráficos referenciados se encuentran en la subcarpeta `figuras/`.*
+
 
 
 
