@@ -139,7 +139,21 @@ Para este trabajo, nuestra variable de resultado es la anemia. Básicamente, la 
 
 La Tabla 1 presenta las estadísticas descriptivas de las variables principales, diferenciando entre el grupo control (niños de 33 a 35 meses) y el grupo tratado (niños de 36 a 39 meses). 
 
-*(Ver Tabla 1 en el notebook)*
+## Tabla 1. Estadísticas Descriptivas por Grupo
+### Ventana de observación: 33–39 meses
+
+| Variable | N total | Media total | DE total | Media control | Media tratado | Dif. medias | p-valor (t) | Mín | Máx |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| anemia | 2,395 | 0.015 | 0.123 | 0.012 | 0.018 | 0.007 | 0.181 | 0.0 | 1.0 |
+| edad_meses | 2,395 | 35.980 | 2.030 | 33.954 | 37.525 | 3.572 | 0.000 | 33.0 | 39.0 |
+| elegible | 2,395 | 0.567 | 0.496 | 0.000 | 1.000 | 1.000 | 0.000 | 0.0 | 1.0 |
+| tratamiento | 1,075 | 0.926 | 0.263 | 0.950 | 0.910 | −0.040 | 0.016 | 0.0 | 1.0 |
+| running | 2,395 | −0.020 | 2.030 | −2.046 | 1.525 | 3.572 | 0.000 | −3.0 | 3.0 |
+
+> **Notas:** *Control* = niños de 33–35 meses (no elegibles). *Tratado* = niños de 36–39 meses (elegibles).
+> La columna p-valor (t) corresponde al test t de diferencia de medias entre grupos.
+> Un p-valor < 0.05 indica diferencia estadísticamente significativa al 5%.
+
 
 Para entender la Tabla 1, hay que fijarse principalmente en la columna de "Diferencia de medias", que es donde comparamos al grupo tratado con el de control.
 
@@ -227,7 +241,26 @@ Interpretación: Si el efecto solo "salta" en el corte de los 36 meses y en los 
 
 La Tabla 2 presenta las estimaciones del efecto causal de Qali Warma sobre la anemia en cuatro especificaciones distintas. Las diferencias entre especificaciones permiten evaluar la robustez de los resultados.
 
-*(Ver Tabla 2 en el notebook)*
+## Tabla 2. Resultados de Regresión Discontinua
+### Variable dependiente: Anemia (0/1)
+
+| | Esp. (1) | Esp. (2) | Esp. (3) | Esp. (4) |
+|:---|:---:|:---:|:---:|:---:|
+| **Especificación** | Sin cov. | Con cov. | BW estrecho | BW amplio |
+| **Elegible (τ_RD)** | — | — | **0.0249\*\*\*** | — |
+| *(Error estándar)* | | | *(0.0087)* | |
+| | | | | |
+| Bandwidth (meses) | 1.07 | 1.07 | 0.64 | 1.60 |
+| Covariables | No | Sí | No | No |
+| N observaciones | 996 | 996 | 321 | 996 |
+| R-cuadrado | 0.0004 | 0.0004 | 0.0000 | 0.0004 |
+
+> **Notas:** Errores estándar robustos (HC3) en paréntesis.
+> \*\*\* p<0.01 &nbsp; \*\* p<0.05 &nbsp; \* p<0.10
+>
+> Todas las especificaciones incluyen polinomio local de orden 1 con pendientes distintas a cada lado del umbral.
+> Variable de corte: edad centrada en 36 meses. Tratamiento: elegibilidad Qali Warma.
+
 
 **Cómo leer la Tabla 2:**
 
@@ -327,6 +360,7 @@ Este trabajo aplica la metodología de Regresión Discontinua para estimar el ef
 ---
 
 *Nota: Este documento es autocontenido. Para ver el código fuente y la ejecución completa del análisis, consultar el notebook `analisis_RD_qaliwarma.ipynb` en el mismo directorio. Los gráficos referenciados se encuentran en la subcarpeta `figuras/`.*
+
 
 
 
