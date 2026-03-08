@@ -9,7 +9,7 @@ output:
 **Trabajo Final — Fundamentos de Inferencia Causal**  
 **Integrantes**:
 - Julia Massa Coronel (20196415)
-- Carlos
+- Carlos Crespin Juarez (20203563)
 - Ibeeth Medina Silva (20214029)
 ---
 
@@ -58,7 +58,7 @@ La **Regresión Discontinua** es precisamente la herramienta diseñada para reso
 
 ### 2.1 Fuente de variación exógena (Requisito 1 del trabajo)
 
-La **fuente de variación exógena** en este estudio es la **regla administrativa de elegibilidad de Qali Warma basada en la edad**: solo los niños de 36 meses o más pueden acceder a las raciones del programa a través de los centros de educación inicial. Esta regla es establecida por política pública y se aplica uniformemente, con independencia de las características individuales de cada niño o de su hogar.
+La **fuente de variación exógena** en este estudio es la **regla administrativa de elegibilidad de Qali Warma basada en la edad**: solo los niños de 36 meses o más pueden acceder a las raciones del programa a través de los centros de educación inicial de instituciones públicas. Esta regla es establecida por política pública y se aplica uniformemente, con independencia de las características individuales de cada niño o de su hogar.
 
 La **exogeneidad** se basa en que esta regla no se creó pensando en los niveles de anemia de los niños, sino en cómo está organizado el sistema educativo peruano (la edad mínima para entrar al nivel inicial). Por eso, el hecho de que algunos niños puedan acceder al programa justo después de cumplir 36 meses no depende de características del niño o de su hogar que también influyan en la anemia. Esto es lo que permite usar esta situación para hacer **inferencia causal**.
 
@@ -360,6 +360,7 @@ Este trabajo aplica la metodología de Regresión Discontinua para estimar el ef
 ---
 
 *Nota: Este documento es autocontenido. Para ver el código fuente y la ejecución completa del análisis, consultar el notebook `analisis_RD_qaliwarma.ipynb` en el mismo directorio. Los gráficos referenciados se encuentran en la subcarpeta `figuras/`.*
+
 
 
 
